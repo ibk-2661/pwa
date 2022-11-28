@@ -4,7 +4,6 @@ var CACHE_NAME = 'pwa-test-caches';
 
 //キャッシュするファイルの指定
 var urlsToCache = [
-	'index.html',
 	'script.js',
 	'style.css'
 ];
