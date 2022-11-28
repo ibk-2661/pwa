@@ -1,9 +1,9 @@
 
 // キャッシュ名
-var CACHE_NAME = 'pwa-test-caches';
+var cacheName = 'pwa-test-caches';
 
 //キャッシュするファイルの指定
-var urlsToCache = [
+var cacheFiles = [
 	'script.js',
 	'style.css'
 ];
@@ -11,13 +11,13 @@ var urlsToCache = [
 // インストール処理
 self.addEventListener('install', function(event) {
 	event.waitUntil(
-		caches.open(CACHE_NAME).then(function(cache) {
-			return cache.addAll(urlsToCache);
+		caches.open(cacheName).then(function(cache) {
+			return cache.addAll(cacheFiles);
 		})
 	);
 });
 
-//ServiceWorkerが有効になるときcacheNameがちがうキャッシュを削除する
+//ServiceWorkerが有効になるときにcacheNameが違うキャッシュを削除する
 self.addEventListener('activate',function(event){
   event.waitUntil(
     caches.keys().then(function(keyList){
