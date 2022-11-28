@@ -23,10 +23,12 @@ button {
 	background-color: #B78D4A;
 	border-radius: 15px;
 }
+
 button:hover {
 	cursor: pointer;
 	background-color: #D4BB92;
 }
+
 button:disabled {
 	cursor: default;
 	background-color: #D4BB92;
