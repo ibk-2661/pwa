@@ -3,9 +3,6 @@
 	"name": "PWAテストアプリケーション",
 	"display": "standalone",
 	"start_url": "index.html",
-	"orientation": "any",
-	"theme_color": "#fff",
-	"background_color": "#add3ee",
 	"icons": [
 		{
 			"src": "images/icon_192x192.png",
