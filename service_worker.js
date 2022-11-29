@@ -1,41 +1,34 @@
 
 // キャッシュ名
-var cacheName = 'pwa-test-caches';
+const cacheName = 'pwa-test-caches';
 
-//キャッシュするファイルの指定
-var cacheFiles = [
-	'script.js',
-	'style.css'
+//プレキャッシュするファイルの指定
+const precacheResources = [
+	'/',
+	'/index.html',
+	'/script.js',
+	'/style.css'
 ];
 
-// インストール処理
-self.addEventListener('install', function(event) {
-	event.waitUntil(
-		caches.open(cacheName).then(function(cache) {
-			return cache.addAll(cacheFiles);
-		})
-	);
+// サービスワーカーのインストールが完了したら、キャッシュを開いてプリキャッシュリソースを追加する
+self.addEventListener('install', (event) => {
+  console.log('サービスワーカーのインストールイベント');
+  event.waitUntil(caches.open(cacheName).then((cache) => cache.addAll(precacheResources)));
 });
 
-//ServiceWorkerが有効になるときにcacheNameが違うキャッシュを削除する
-self.addEventListener('activate',function(event){
-  event.waitUntil(
-    caches.keys().then(function(keyList){
-      return Promise.all(keyList.map(function(key){
-        if(key !== cacheName){
-          return caches.delete(key);
-        }
-      }));
-    })
-  );
-  return self.clients.claim();
+self.addEventListener('activate', (event) => {
+  console.log('サービスワーカーのアクティベートイベント');
 });
 
-//キャッシュがあれば呼び出し、ない場合ネットワークから取りに行く
-self.addEventListener('fetch',function(event){
+// 取得要求があった場合、プリキャッシュリソースでの応答を試み、それ以外の場合はネットワークにフォールバックする
+self.addEventListener('fetch', (event) => {
+  console.log('Fetch intercepted for:', event.request.url);
   event.respondWith(
-    caches.match(event.request).then(function(response){
-      return response || fetch(event.request);
-    })
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      return fetch(event.request);
+    }),
   );
 });
