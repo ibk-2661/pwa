@@ -19,15 +19,19 @@
             <button id="reset" onclick="reset()" disabled>Reset</button>
         </div>
     </div>
-
+    
     <script>
+        // サービスワーカーの登録
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('service_worker.js').then(function(registration) {
-                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                }, function(err) {
-                    console.log('ServiceWorker registration failed: ', err);
-                });
+            // 'load'イベントが他の作業を妨げないように待機する
+            window.addEventListener('load', async () => {
+                // サービスワーカーの登録を試みる。
+                try {
+                    const reg = await navigator.serviceWorker.register('service_worker.js');
+                    console.log('サービスワーカーが登録できました!😎', reg);
+                } catch (err) {
+                    console.log('サービスワーカーの登録に失敗しました😥', err);
+                }
             });
         }
     </script>
