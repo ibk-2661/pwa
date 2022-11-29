@@ -12,12 +12,12 @@ const precacheResources = [
 
 // サービスワーカーのインストールが完了したら、キャッシュを開いてプリキャッシュリソースを追加する
 self.addEventListener('install', (event) => {
-  console.log('サービスワーカーのインストールイベント');
+  console.log('サービスワーカーのインストール');
   event.waitUntil(caches.open(cacheName).then((cache) => cache.addAll(precacheResources)));
 });
 
 self.addEventListener('activate', (event) => {
-  console.log('サービスワーカーのアクティベートイベント');
+  console.log('サービスワーカーのアクティベート');
 });
 
 // 取得要求があった場合、プリキャッシュリソースでの応答を試み、それ以外の場合はネットワークにフォールバックする
