@@ -4,10 +4,10 @@ const cacheName = 'pwa-test-caches';
 
 //プレキャッシュするファイルの指定
 const precacheResources = [
-	'/',
-	'/index.html',
-	'/script.js',
-	'/style.css'
+	'/pwa/',
+	'/pwa/index.html',
+	'/pwa/script.js',
+	'/pwa/style.css'
 ];
 
 // サービスワーカーのインストールが完了したら、キャッシュを開いてプリキャッシュリソースを追加する
